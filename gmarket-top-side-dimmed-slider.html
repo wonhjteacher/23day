@@ -11,6 +11,7 @@
     />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <style>
+        .wrap{width: 100%;min-width: 1200px}
         .mainbanner{height: 400px;margin: 50px auto 0;margin-left: -480px;margin-right: -480px;position: relative;}
         .dim{
             background-color: rgba(0,0,0,.55);
@@ -25,6 +26,8 @@
 
 </head>
 <body>
+<div class='wrap'>
+
 <div class='mainbanner'>
     <div class='left-dimmed dim'></div>
     <div class='right-dimmed dim'></div>
@@ -44,6 +47,8 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
     </div>
+
+</div>
 
 </div>
 <script>
@@ -66,5 +71,24 @@
         },
     })
 </script>
+
 </body>
 </html>
+<!-- 
+const stopBtn = document.querySelector('#stopBtn')
+const playBtn = document.querySelector('#playBtn')
+
+ stopBtn.addEventListener('click',() =>{
+    bannerSlider.autoplay.stop();
+ })
+   
+ playBtn.addEventListener('click',() =>{
+    bannerSlider.autoplay.start();
+ })
+   
+
+-->
+
+
+    bannerSlider.autoplay.start();
+
