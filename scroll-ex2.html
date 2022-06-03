@@ -33,14 +33,37 @@
             <li>section6</li>
         </ul>
     </div>
-    <div class="section s1"></div>
-    <div class="section s2"></div>
-    <div class="section s3"></div>
-    <div class="section s4"></div>
-    <div class="section s5"></div>
-    <div class="section s6"></div>
+    <div class="section s1" data-index='0'></div>
+    <div class="section s2" data-index='1'></div>
+    <div class="section s3" data-index='2'></div>
+    <div class="section s4" data-index='3'></div>
+    <div class="section s5" data-index='4'></div>
+    <div class="section s6" data-index='5'></div>
 
     <script>
+        const section = document.querySelectorAll('.section');
+        const li = document.querySelectorAll('.gnb li');
+
+        const callbackFnc = (entries) => {
+            entries.forEach((ele)=>{
+                const index = ele.target.dataset.index;
+                li.forEach(ele=>ele.classList.remove('on'));
+                if(window.scrollY === 0) {
+                    li[0].classList.add('on');
+                }else{
+                    li[index].classList.add('on');
+                }
+                
+            })
+        }
+
+        const option = {
+            threshold:0.6
+        }
+
+        const scrollObserver = new IntersectionObserver(callbackFnc,option);
+
+        section.forEach(sectionEle => scrollObserver.observe(sectionEle))  ; 
         
     </script>
 </body>
