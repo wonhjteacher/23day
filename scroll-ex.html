@@ -10,12 +10,14 @@
         .gnb li{float: left}
         .gnb li a{display: block;height: 50px;line-height: 50px;color:#fff;font-size: 20px;text-align: center;padding: 0 20px;}
 
-        .gnb li a.on{background: rgba(255,255,255,0.85);color:#333;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
+        .gnb li.on a{background: rgba(255,255,255,0.85);color:#333;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
 
         .section{height: 100%;position: relative;overflow: hidden}
-        .section img{position: absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%)}
+        .section img{position: absolute;top:50%;left:50%;transform: translateX(-80%) translateY(-50%);opacity: 0;transition: 0.3s;}
         .section img.a01{transform: translateX(-100%) translateY(-50%)}
         .section img.a03{transform: translateX(0%) translateY(-50%)}
+
+        .section.active img {opacity: 1;transform: translateX(-50%) translateY(-50%)}
     
         .one{background-color: #09f}
         .two{background-color: #81af13}
@@ -35,23 +37,50 @@
 	  <li><a href="#">FOUR</a></li>
 	  <li><a href="#">FIVE</a></li>
   </ul>
-  <div class="section one">
+  <div class="section one" data-index='0'>
 	<img src="img/scroll/toy01.png">
   </div>
-   <div class="section two">
-	<img src="img/scroll/toy06.png" class="a01">
-	<img src="img/scroll/toy06.png" class="a02">
-	<img src="img/scroll/toy06.png" class="a03">
+   <div class="section two" data-index='1'>
+    <img src="img/scroll/toy06.png" class="a01">
+    <img src="img/scroll/toy06.png" class="a02">
+    <img src="img/scroll/toy06.png" class="a03">
   </div>
-   <div class="section three">
+   <div class="section three" data-index='2'>
 	<img src="img/scroll/toy03.png">
   </div>
-   <div class="section four">
+   <div class="section four" data-index='3'>
 	<img src="img/scroll/toy04.png">
   </div>
-   <div class="section five">
+   <div class="section five" data-index='4'>
 	<img src="img/scroll/toy05.png">
   </div>
+  <script>
+        const section = document.querySelectorAll('.section');
+        const li = document.querySelectorAll('.gnb li');
+      
+        const observerFnc = (entries) =>{
+          console.log(entries)
+          entries.forEach(ele =>{
+            //li클래스 업데이트
+            const index = ele.target.dataset.index;
+            li.forEach(ele=>ele.classList.remove('on'))
+            li[index].classList.add('on');
+            // 섹션안의 이미지를 show 하기 위해서해당섹션에 active 클래스 부여 
+             if(ele.isIntersecting){
+               ele.target.classList.add('active');
+             }else{
+               ele.target.classList.remove('active');
+             }
+          })//forEach
+
+        } //observerFnc
+        const option = {
+          threshold:0.6
+        }
+        const observerObject = new IntersectionObserver(observerFnc,option);
+
+        section.forEach(selectionItem =>observerObject.observe(selectionItem))
+  </script>
 </body>
 </html>
 
